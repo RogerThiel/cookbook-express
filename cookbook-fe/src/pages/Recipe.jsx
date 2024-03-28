@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { createClient } from 'contentful';
+// import { createClient } from 'contentful';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { useState, useEffect } from 'react';
 
@@ -11,9 +11,8 @@ function Recipe() {
 
     const {id} = useParams();
 
-    const client = createClient({ space: `${import.meta.env.VITE_contentful_space_id}`, accessToken: `${import.meta.env.VITE_contentful_delivery_api_key}`});
+    // const client = createClient({ space: `${import.meta.env.VITE_contentful_space_id}`, accessToken: `${import.meta.env.VITE_contentful_delivery_api_key}`});
 
-    // Funktion zum Fetchen der API von Contentful:
     useEffect(() => {
         async function fetchRecipeById() {
             try {

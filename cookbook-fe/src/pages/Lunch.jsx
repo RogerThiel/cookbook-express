@@ -10,38 +10,6 @@ function Lunch() {
 
     // const client = createClient({ space: `${import.meta.env.VITE_contentful_space_id}`, accessToken: `${import.meta.env.VITE_contentful_delivery_api_key}`});
 
-
-//     useEffect(() => {
-//     async function fetchData() {
-
-//         try {
-//           await client.getEntries().then((data) => {
-//             const filteredRecipes = data.items.filter(recipe => recipe.fields.typeOfFood === 2);
-//             console.log(filteredRecipes)
-//             setLunchRecipes(filteredRecipes);
-//           });
-
-//         } catch (error) {
-//           console.error(error);
-//         }
-
-//       }
-  
-//       fetchData();
-//     }, []);
-
-//     return (
-//         <div className="recipe-card-container">
-//         {lunchRecipes?.map((recipe) => (
-//             <Link key={recipe.sys.id} to={`/${recipe.sys.id}`}>
-//                 <DisplayRecipes recipe={recipe} />
-//             </Link>
-//         ))}
-//         </div>
-//     );
-  
-// }
-
 useEffect(() => {
     async function fetchData() {
         try {
@@ -50,10 +18,10 @@ useEffect(() => {
                 throw new Error('Network response was not ok');
             }
             const data = await response.json();
-            console.log(data.includes.Asset);
+            console.log('Assets:', data.includes.Asset);
             setAssets(data.includes.Asset);
             const filteredRecipes = data.items.filter(item => item.fields.typeOfFood === 2);
-            console.log(filteredRecipes)
+            console.log('filtered Recipes:', filteredRecipes)
             setLunchRecipes(filteredRecipes);
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -67,15 +35,17 @@ return (
     <div className="recipe-card-container">
         {lunchRecipes.map(recipe => {
             const asset = assets.find(asset => asset.fields.title === recipe.fields.title);
-            if (!asset) return null; // Skip if asset not found
+            console.log('Asset:', asset);
+            if (!asset) return null; 
+            console.log('Asset fields:', asset.fields);
             return (
-                <Link key={recipe.metadata.sys.id} to={`/${recipe.metadata.sys.id}`}>
+                <Link key={recipe.sys.id} to={`/${recipe.sys.id}`}>
                     <DisplayRecipes recipeAsset={asset.fields} />
                 </Link>
             );
         })}
     </div>
-);
+    );
 }
 
 export default Lunch;
